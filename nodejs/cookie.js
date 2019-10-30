@@ -1,6 +1,8 @@
-var http = require('http')
+
+const express = require('express')
+const app = express();
 var cookie = require('cookie')
- http.createServer(function(request, respons){
+app.get('/',(function(request, respons){
      console.log(request.headers.cookie);
      var cookies = {};
 
@@ -15,8 +17,14 @@ var cookie = require('cookie')
                 ,`Permanent=cookies;Max-Age=${60*60*23*30}`
                 ,"Secure=secure; Secure"
                 ,"HttpOnly=HttpOnly; HttpOnly"
+                ,"Path=Path; Path=/cookie"
+                ,"domain=domain; Domain=o2.org"
             ]}
         ) 
      respons.end('Cookie!!')
      
- }).listen(3000);
+ }))
+
+ app.listen(port=3000,function(){
+    console.log(`Example app listening on port ${port}!`)
+ })
